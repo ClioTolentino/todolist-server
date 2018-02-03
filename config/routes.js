@@ -37,8 +37,8 @@ module.exports.routes = {
   'post /signUp': 'UserController.create',
   'get /tasks': 'TaskController.list',
   'post /tasks': 'TaskController.create',
-  'put /tasks': 'TaskController.update',
-  'delete /tasks': 'TaskController.destroy'
+  'put /tasks/:id': 'TaskController.update',
+  'delete /tasks/:id': 'TaskController.destroy'
 
   /***************************************************************************
   *                                                                          *

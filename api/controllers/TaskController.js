@@ -7,14 +7,28 @@
 
 module.exports = {
     create: function (req, res) {
-        return res.json({
-            todo: 'create() is not implemented yettt!'
+        console.log('Creating...');
+        var params = req.params.all();
+        return new Promise(function(resolve, reject) {
+            Task.create(params).exec(function(err, task) {
+                resolve(res.json({
+                    err: err,
+                    task: task
+                }));
+            });
         });
     },
 
     update: function (req, res) {
-        return res.json({
-            todo: 'update() is not implemented yet!'
+        console.log('Updating task...');
+        var id = req.param('id');
+        var params = req.params.all();
+        return new Promise(function(resolve, reject) {
+            Task.update({ id: id }, params).exec(function(err) {
+                resolve(res.json({
+                    err: err
+                }));
+            });
         });
     },
 
@@ -30,8 +44,13 @@ module.exports = {
     },
 
     destroy: function(req, res) {
-        return res.json({
-            todo: 'destroy() is not implemented yet!'
+        console.log('Destroying task with id: ' + req.param('id'));
+        return new Promise(function(resolve, reject) {
+            Task.destroy({ id: req.param('id') }).exec(function(err) {
+                resolve(res.json({
+                    err: err
+                }));
+            });
         });
     }
 };
