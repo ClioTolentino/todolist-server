@@ -34,7 +34,11 @@ module.exports.bootstrap = function (cb) {
     /**
      * Tasks seeds
      */
-    Task.create({ title: 'Task1' }).exec(function (err, record) { });
+    Task.create({ title: 'Task1' }).exec(function (err, task) { 
+        Subtask.create({ name: 'Subtask1', task: task.id }).exec(function (err, record) { 
+            
+        });
+    });
 
     // It's very important to trigger this callback method when you are finished
     // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
