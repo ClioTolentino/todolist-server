@@ -9,6 +9,7 @@ module.exports = {
     attributes: {
         title: { type: 'string', required: true },
         dueDate: { type: 'date' },
+        alertDate: { type: 'date' },
         notes: { type: 'string' },
         completed: { type: 'boolean' },
         starred: { type: 'boolean' },
