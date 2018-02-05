@@ -12,7 +12,8 @@ module.exports = {
         notes: { type: 'string' },
         completed: { type: 'boolean' },
         starred: { type: 'boolean' },
-        subtasks: { collection: 'subtask', via: 'task' }
+        subtasks: { collection: 'subtask', via: 'task' },
+        attachments: { collection: 'attachment', via: 'task' }
     },
 
     afterDestroy: function(destroyedRecords, cb) {

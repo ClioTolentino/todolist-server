@@ -41,7 +41,7 @@ module.exports = {
 
     list: function(req, res) {
         return new Promise(function(resolve, reject) {
-            Task.find().populate('subtasks').exec(function(err, tasks) {
+            Task.find().populate('subtasks').populate('attachments').exec(function(err, tasks) {
                 resolve(res.json({
                     err: err,
                     tasks: tasks
@@ -61,17 +61,27 @@ module.exports = {
         });
     },
 
-    uploadFile: function(req, res) {
+    addFile: function(req, res) {
+        var taskId = req.param('id');
+
         req.file('attachment').upload({
             maxBytes: 1000000
         }, function(err, files) {
             if (err) {
-
+                return res.serverError(err);
             }
 
-            if (uploadedFiles.length === 0){
-            return res.badRequest('No file was uploaded');
-            }
+            files.forEach(file => {
+                Attachment.create({ 
+                    path: file.fd, 
+                    filename: file.filename,
+                    type: file.type,
+                    size: file.size,
+                    task: taskId
+                }).exec(function(err, attachment) {})
+            });
+            
+            res.json({ status: 200, file: files });
         });
     },
 
