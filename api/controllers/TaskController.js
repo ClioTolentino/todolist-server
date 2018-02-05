@@ -71,17 +71,26 @@ module.exports = {
                 return res.serverError(err);
             }
 
+            var promises = [];
+            var attachments = [];
             files.forEach(file => {
-                Attachment.create({ 
-                    path: file.fd, 
-                    filename: file.filename,
-                    type: file.type,
-                    size: file.size,
-                    task: taskId
-                }).exec(function(err, attachment) {})
+                promises.push(new Promise(function(resolve, reject) {
+                    Attachment.create({ 
+                        path: file.fd, 
+                        filename: file.filename,
+                        type: file.type,
+                        size: file.size,
+                        task: taskId
+                    }).exec(function(err, attachment) {
+                        attachments.push(attachment);
+                        resolve();
+                    })
+                }));
             });
             
-            res.json({ status: 200, file: files });
+            Promise.all(promises).then(function() {
+                res.json({ err: null, files: attachments });
+            });
         });
     },
 
