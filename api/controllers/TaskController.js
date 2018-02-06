@@ -66,7 +66,7 @@ module.exports = {
         var taskId = req.param('id');
 
         req.file('attachment').upload({
-            maxBytes: 1000000
+            maxBytes: 100000
         }, function(err, files) {
             if (err) {
                 return res.serverError(err);
