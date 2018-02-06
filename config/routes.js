@@ -33,8 +33,10 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': { view: 'homepage' },
-  'post /signIn': 'UserController.logIn',
-  'post /signUp': 'UserController.create',
+  'get /account': 'AccountController.account',
+  'put /account': 'AccountController.signIn',
+  'post /account': 'AccountController.signUp',
+  'delete /account': 'AccountController.signOut',
   'get /tasks': 'TaskController.list',
   'post /tasks': 'TaskController.create',
   'put /tasks/:id': 'TaskController.update',

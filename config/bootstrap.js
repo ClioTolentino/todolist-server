@@ -13,32 +13,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 module.exports.bootstrap = function (cb) {
-    // Configure passport
-    passport.use(new LocalStrategy(
-        function (username, password, done) {
-            User.findOne({ username: username }, function (err, user) {
-                if (err) { return done(err); }
-                if (!user) { return done(null, false); }
-                // if (!user.verifyPassword(password)) { return done(null, false); }
-                return done(null, user);
-            });
-        }
-    ));
-
     /**
      * User seeds
      */
     User.create({ name: 'Jhon Doe', email: 'jdoe@gmail.com', password: '123456' }).exec(function (err, record) { });
     User.create({ name: 'Martin Doe', email: 'mdoe@gmail.com', password: '123456' }).exec(function (err, record) { });
-
-    /**
-     * Tasks seeds
-     */
-    Task.create({ title: 'Task1' }).exec(function (err, task) { 
-        Subtask.create({ name: 'Subtask1', task: task.id }).exec(function (err, record) { 
-            
-        });
-    });
 
     // It's very important to trigger this callback method when you are finished
     // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)

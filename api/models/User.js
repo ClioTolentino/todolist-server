@@ -10,7 +10,10 @@ module.exports = {
         name: { type: 'string' },
         email: { type: 'string', required: true },
         password: { type: 'string', required: true },
-        imageUrl: { type: 'string' }
+        imageUrl: { type: 'string' },
+        tasks: {
+            collection: 'task',
+            via: 'user'
+        }
     }
 };
-

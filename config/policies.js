@@ -28,9 +28,9 @@ module.exports.policies = {
 
   // '*': true,
 
-//   TaskController: {
-//       '*': 'sessionAuth'
-//   }
+  TaskController: {
+      '*': 'sessionAuth'
+  }
 
   /***************************************************************************
   *                                                                          *

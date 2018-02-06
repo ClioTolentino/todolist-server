@@ -6,18 +6,6 @@
  */
 
 module.exports = {
-    logIn: function (req, res) {
-        return res.json({
-            todo: 'logIn() is not implemented yettt!'
-        });
-    },
-
-    logOut: function (req, res) {
-        return res.json({
-            todo: 'logOut() is not implemented yettt!'
-        });
-    },
-
 	create: function (req, res) {
         return res.json({
             todo: 'create() is not implemented yettt!'

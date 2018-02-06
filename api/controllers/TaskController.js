@@ -8,9 +8,10 @@
 module.exports = {
     create: function (req, res) {
         console.log('Creating...');
-        var params = req.params.all();
+        var newTask = req.params.all();
         return new Promise(function(resolve, reject) {
-            Task.create(params).exec(function(err, task) {
+            newTask.user = req.session.me.id;
+            Task.create(newTask).exec(function(err, task) {
                 resolve(res.json({
                     err: err,
                     task: task
@@ -41,7 +42,7 @@ module.exports = {
 
     list: function(req, res) {
         return new Promise(function(resolve, reject) {
-            Task.find().populate('subtasks').populate('attachments').exec(function(err, tasks) {
+            Task.find({ user: req.session.me.id }).populate('subtasks').populate('attachments').exec(function(err, tasks) {
                 resolve(res.json({
                     err: err,
                     tasks: tasks
