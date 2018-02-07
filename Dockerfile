@@ -1,6 +1,11 @@
-FROM node:6
+FROM node:6-alpine
 EXPOSE 1337
 
+
+RUN apk --update add git openssh && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm /var/cache/apk/*
+    
 RUN npm install sails -g
 RUN npm install -g @angular/cli
 RUN git clone https://github.com/ClioTolentino/todolist-server.git \
